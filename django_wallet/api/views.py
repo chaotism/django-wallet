@@ -2,19 +2,19 @@ from django.db import IntegrityError
 from django.db import transaction
 from django.db.models import F
 from rest_framework.exceptions import ValidationError
-from rest_framework.generics import CreateAPIView
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListCreateAPIView
 from rest_framework_json_api import django_filters
-from rest_framework_json_api import filters
-
+from rest_framework import generics, filters
 from api.models import Transaction
 from api.models import Wallet
 from api.serializers import TransactionSerializer
 from api.serializers import WalletSerializer
 
 
-class WalletListAPIView(ListAPIView, CreateAPIView):
-    queryset = Wallet.objects.all()
+# region wallet
+
+class WalletListCreateAPIView(ListCreateAPIView):
+    queryset = Wallet.objects.prefetch_related("transactions").all()
     serializer_class = WalletSerializer
     filter_backends = [
         filters.OrderingFilter,
@@ -35,7 +35,23 @@ class WalletListAPIView(ListAPIView, CreateAPIView):
     ordering = ["id"]
 
 
-class TransactionAPIView(ListAPIView, CreateAPIView):
+class WalletDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Wallet.objects.all()
+    serializer_class = WalletSerializer
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({
+            'request': self.request
+        })
+        return context
+
+# endregion wallet
+
+
+# region transaction
+
+class TransactionListCreateAPIView(ListCreateAPIView):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
     filter_backends = [
@@ -58,16 +74,25 @@ class TransactionAPIView(ListAPIView, CreateAPIView):
         "id",
     ]
 
-    @transaction.atomic
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         try:
-            wallet = serializer.validated_data["wallet"]
-            wallet.balance = F("balance") + serializer.validated_data["amount"]
-            wallet.save()
+            serializer.save()
         except IntegrityError:
             raise ValidationError({"error": "Transaction would result in negative wallet balance. Check balance"})
 
-        serializer.save()
+
+class TransactionDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({
+            'request': self.request
+        })
+        return context
+
+# endregion transaction

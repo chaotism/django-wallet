@@ -24,7 +24,7 @@ class Wallet(models.Model):
 
 class Transaction(models.Model):
     txid = models.CharField(max_length=255, unique=True)  # noqa
-    wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE)
+    wallet = models.ForeignKey(Wallet, related_name='transactions', on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=32, decimal_places=18)
 
     def __str__(self):
@@ -35,14 +35,14 @@ class Transaction(models.Model):
 
     @transaction.atomic
     def save(self, *args, **kwargs):
-        wallet = get_object_or_404(Wallet.objects.select_for_update(), pk=self.wallet.primary_key)
-        wallet += self.amount
+        wallet = get_object_or_404(Wallet.objects.select_for_update(), pk=self.wallet.pk)
+        wallet.balance += self.amount
         wallet.save()
         super(Transaction, self).save(*args, **kwargs)
 
     @transaction.atomic
     def delete(self, *args, **kwargs):
-        wallet = get_object_or_404(Wallet.objects.select_for_update(), pk=self.wallet.primary_key)
-        wallet -= self.amount
+        wallet = get_object_or_404(Wallet.objects.select_for_update(), pk=self.wallet.pk)
+        wallet.balance -= self.amount
         wallet.save()
         super(Transaction, self).save(*args, **kwargs)
