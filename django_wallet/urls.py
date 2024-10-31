@@ -1,8 +1,5 @@
-from django.urls import path
-from .api.views import TransactionAPIView
-from .api.views import WalletListAPIView
+from django.urls import include, path
 
 urlpatterns = [
-    path("wallets", WalletListAPIView.as_view(), name="wallets"),
-    path("transactions", TransactionAPIView.as_view(), name="transactions"),
+    path("api/", include("api.urls")),
 ]

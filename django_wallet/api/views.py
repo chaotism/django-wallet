@@ -7,10 +7,10 @@ from rest_framework.generics import ListAPIView
 from rest_framework_json_api import django_filters
 from rest_framework_json_api import filters
 
-from .models import Transaction
-from .models import Wallet
-from .serializers import TransactionSerializer
-from .serializers import WalletSerializer
+from api.models import Transaction
+from api.models import Wallet
+from api.serializers import TransactionSerializer
+from api.serializers import WalletSerializer
 
 
 class WalletListAPIView(ListAPIView, CreateAPIView):
@@ -46,7 +46,7 @@ class TransactionAPIView(ListAPIView, CreateAPIView):
         "id": ("exact",),
         "txid": ("exact",),
         "wallet_id": ("exact",),
-        "balance": (
+        "amount": (
             "gte",
             "lte",
         )

@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import TransactionAPIView
-from .views import WalletListAPIView
+from django_wallet.api.views import TransactionAPIView
+from django_wallet.api.views import WalletListAPIView
 
 urlpatterns = [
     path("wallets", WalletListAPIView.as_view(), name="wallets"),
