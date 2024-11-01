@@ -1,7 +1,7 @@
 from django.urls import path
 
-from django_wallet.api.views import WalletListCreateAPIView, WalletDetailAPIView
-from django_wallet.api.views import TransactionListCreateAPIView, TransactionDetailAPIView
+from api.views import WalletListCreateAPIView, WalletDetailAPIView
+from api.views import TransactionListCreateAPIView, TransactionDetailAPIView
 
 urlpatterns = [
     path("wallets", WalletListCreateAPIView.as_view(), name="wallets"),
