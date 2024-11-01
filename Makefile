@@ -2,9 +2,11 @@
 
 start: up logs
 
-run: linter build up
+run: build migrate up
 
 rerun: down run
+
+check: linter test
 
 install:
 	pip install poetry==1.8.4
@@ -35,4 +37,4 @@ migrate:
 	@source .venv/bin/activate && cd django_wallet/ && poetry run manage.py makemigrations && python manage.py migrate
 
 test:
-	@source .venv/bin/activate && cd django_wallet/ && poetry run manage.py test
+	@source .venv/bin/activate && source .env.test && cd django_wallet/ && pytest api/tests.py

@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "rest_framework",
+
+    "django_filters",
     "drf_yasg",
-    "api",
+    "rest_framework",
+
+    "api.apps.ApiConfig",
 ]
 
 MIDDLEWARE = [
@@ -81,7 +84,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": os.environ.get("DB_NAME", "wallet_api"),
-        "USER": os.environ.get("DB_USER", "wallet_user"),
+        "USER": os.environ.get("DB_USER", "root"),
         "PASSWORD": os.environ.get("DB_PASSWORD", "secret"),
         "HOST": os.environ.get("DB_HOST", "localhost"),
         "PORT": os.environ.get("DB_PORT", 3306),

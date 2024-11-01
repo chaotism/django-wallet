@@ -26,4 +26,3 @@ WORKDIR ${PROJECT_PATH}
 
 EXPOSE ${API_PORT}
 RUN chmod +x ./run.sh
-ENTRYPOINT ./run.sh

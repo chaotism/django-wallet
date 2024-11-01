@@ -44,6 +44,7 @@ Improvement: Migrate to an onion structure project like my previous one https://
 Improvement: use Multi-stage builds
 Improvement: use pytests fixtures for wallet and transactions
 Improvement: add mypy and sonar-qube checks, migrate to ruff
+Improvement: migrate to async
 ```
 
 ## Prerequisites

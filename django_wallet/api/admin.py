@@ -1,7 +1,17 @@
 from django.contrib import admin
 
-from .models import Transaction
-from .models import Wallet
+from api.models import Transaction
+from api.models import Wallet
+
+
+@admin.register(Wallet)
+class WalletAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "label",
+        "balance",
+    )
+    readonly_fields = ("balance",)
 
 
 @admin.register(Transaction)
@@ -14,13 +24,3 @@ class TransactionAdmin(admin.ModelAdmin):
         "amount",
     )
     readonly_fields = ("txid", "amount",)
-
-
-@admin.register(Wallet)
-class WalletAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "label",
-        "balance",
-    )
-    readonly_fields = ("balance",)

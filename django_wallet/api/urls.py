@@ -1,9 +1,11 @@
 from django.urls import path
 
-from .views import TransactionAPIView
-from .views import WalletListAPIView
+from api.views import WalletListCreateAPIView, WalletDetailAPIView
+from api.views import TransactionListCreateAPIView, TransactionDetailAPIView
 
 urlpatterns = [
-    path("wallets", WalletListAPIView.as_view(), name="wallets"),
-    path("transactions", TransactionAPIView.as_view(), name="transactions"),
+    path("wallets", WalletListCreateAPIView.as_view(), name="wallets"),
+    path("wallets/<int:pk>/", WalletDetailAPIView.as_view(), name="wallet-detail"),
+    path("transactions", TransactionListCreateAPIView.as_view(), name="transactions"),
+    path("transactions/<int:pk>/", TransactionDetailAPIView.as_view(), name="transaction-detail"),
 ]
