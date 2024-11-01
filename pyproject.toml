@@ -41,9 +41,12 @@ pytz = "^2024.2"
 PyYAML = "^6.0.2"
 sqlparse = "^0.5.1"
 uritemplate = "^4.1.1"
+load-dotenv = "^0.1.0"
+
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"
+pytest-django = "^4.9.0"
 coverage = "*"
 pre-commit = "^3.8.0"
 
@@ -77,8 +80,8 @@ include_trailing_comma = true
 lines_between_types = 1
 sections = ["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
 
-[tool.mypy]
-python_version = "3.13"
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "django_wallet.settings"
 
 # flake8-mypy expects the two following for sensible formatting
 show_column_numbers = true

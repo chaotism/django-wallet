@@ -30,7 +30,7 @@ services:
     container_name: api_worker
     networks:
       - api-common-net
-
+    command: sh -c "python manage.py migrate --noinput &&  python manage.py runserver 0.0.0.0:8000"
     env_file: .env
     ports:
       - "${API_PORT}:${API_PORT}"
