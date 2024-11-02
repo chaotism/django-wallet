@@ -12,11 +12,9 @@ install:
 	pip install poetry==1.8.4
 	poetry install --without dev
 
-
 dev_install:
 	pip install poetry==1.8.4
 	poetry install --with dev
-
 
 build:
 	@docker compose build

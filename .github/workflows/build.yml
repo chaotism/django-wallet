@@ -41,3 +41,13 @@ jobs:
       env:
         DB_HOST: 127.0.0.1
         DB_PORT: 3306
+
+  deployment:
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: build
+        shell: bash
+        run: |
+          make build
