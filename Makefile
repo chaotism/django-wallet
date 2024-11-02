@@ -28,7 +28,7 @@ logs:
 	@docker compose logs -f
 
 linter: # correct path to virtual environment directory if needs
-	@source .venv/bin/activate &&  pre-commit run --all-files
+	@pre-commit run --all-files
 
 local-run:
 	@source .venv/bin/activate && cd django_wallet/ && poetry run manage.py runserver

@@ -21,7 +21,10 @@ jobs:
         make install
     - name: Run linters
       run: |
-        make lint
+        make linter
+    - name: upping project
+      run: |
+        make up
     - name: Test with pytest
       run: |
         make test
