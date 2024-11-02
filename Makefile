@@ -43,4 +43,6 @@ migrate:
 	@poetry run manage.py makemigrations && poetry run manage.py migrate
 
 test: dev_install
-	@source .env.test && cd django_wallet/ && poetry run pytest api/tests.py
+	@poetry run pytest django_wallet/api/tests.py
+
+
