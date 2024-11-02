@@ -58,8 +58,20 @@ Before running this project you should have installed linux environment with the
 
 ## Installation
 
-Install django-wallet with pip
+Install django-wallet with poetry
 
 ```bash
-pip install django-wallet
+make install
+```
+
+## Run
+
+```bash
+make run
+```
+after this you could see you application at address http://0.0.0.0:8000/   
+
+## Tests
+```bash
+make check
 ```
