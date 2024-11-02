@@ -34,13 +34,13 @@ logs:
 	@docker compose logs -f
 
 linter: dev_install
-	@.venv/bin/pre-commit run --all-files
+	@poetry run pre-commit run --all-files
 
 local-run:
-	@source .venv/bin/activate && cd django_wallet/ && poetry run manage.py runserver
+	@poetry run manage.py runserver
 
 migrate:
-	@source .venv/bin/activate && cd django_wallet/ && poetry run manage.py makemigrations && python manage.py migrate
+	@poetry run manage.py makemigrations && poetry run manage.py migrate
 
 test: dev_install
-	@source .venv/bin/activate && source .env.test && cd django_wallet/ && pytest api/tests.py
+	@source .env.test && cd django_wallet/ && poetry run pytest api/tests.py
