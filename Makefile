@@ -10,7 +10,7 @@ check: linter test
 
 install:
 	pip install poetry==1.8.4
-	poetry install
+	poetry install --without dev
 
 
 dev_install:
@@ -34,7 +34,7 @@ logs:
 	@docker compose logs -f
 
 linter: dev_install
-	@pre-commit run --all-files
+	@source .venv/bin/activate && pre-commit run --all-files
 
 local-run:
 	@source .venv/bin/activate && cd django_wallet/ && poetry run manage.py runserver
