@@ -21,6 +21,9 @@ dev_install:
 build:
 	@docker compose build
 
+db:
+	@docker compose -f docker-compose.yml --env-file .env up db -d
+
 up:
 	@docker compose -f docker-compose.yml --env-file .env up
 
