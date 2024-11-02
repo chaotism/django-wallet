@@ -20,11 +20,14 @@ jobs:
       run: |
         make install
     - name: Run linters
+      shell: bash
       run: |
         make linter
     - name: upping project
+      shell: bash
       run: |
         make up
     - name: Test with pytest
+      shell: bash
       run: |
         make test
