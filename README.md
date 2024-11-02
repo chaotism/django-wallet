@@ -33,7 +33,7 @@ Leave github link to repo. Please delete the repo after HR feedback
 [memory limit] 1 GB
 ```
 
-## Task
+## Plans to impove
 
 ```text
 Improvement: By adding a transaction status, we can achieve a transaction outbox pattern and avoid the need to calculate the balance immediately. (alternative is using https://github.com/juntossomosmais/django-outbox-pattern)
