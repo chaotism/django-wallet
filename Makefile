@@ -44,5 +44,3 @@ migrate:
 
 test: dev_install
 	@poetry run pytest django_wallet/api/tests.py
-
-
