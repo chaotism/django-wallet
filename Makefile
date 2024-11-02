@@ -34,7 +34,7 @@ logs:
 	@docker compose logs -f
 
 linter: dev_install
-	@source .venv/bin/activate && pre-commit run --all-files
+	@.venv/bin/pre-commit run --all-files
 
 local-run:
 	@source .venv/bin/activate && cd django_wallet/ && poetry run manage.py runserver
