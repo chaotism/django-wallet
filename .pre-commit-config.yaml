@@ -37,8 +37,3 @@ repos:
     rev: 5.13.2
     hooks:
       - id: isort
-        args:
-          [
-            "--python-version",  # migrate to 313
-            "312"
-          ]

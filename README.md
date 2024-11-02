@@ -69,7 +69,7 @@ make install
 ```bash
 make run
 ```
-after this you could see you application at address http://0.0.0.0:8000/   
+after this you could see you application at address http://0.0.0.0:8000/
 
 ## Tests
 ```bash

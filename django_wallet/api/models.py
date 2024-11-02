@@ -1,5 +1,6 @@
 from django.core.validators import MinValueValidator
-from django.db import models, transaction
+from django.db import models
+from django.db import transaction
 from django.db.models import CheckConstraint
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
@@ -24,7 +25,7 @@ class Wallet(models.Model):
 
 class Transaction(models.Model):
     txid = models.CharField(max_length=255, unique=True)  # noqa
-    wallet = models.ForeignKey(Wallet, related_name='transactions', on_delete=models.CASCADE)
+    wallet = models.ForeignKey(Wallet, related_name="transactions", on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=32, decimal_places=18)
 
     def __str__(self):

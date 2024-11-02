@@ -1,17 +1,16 @@
-from django.db import IntegrityError
-from django.db import transaction
-from django.db.models import F
-from rest_framework.exceptions import ValidationError
-from rest_framework.generics import ListCreateAPIView
-from rest_framework_json_api import django_filters
-from rest_framework import generics, filters
 from api.models import Transaction
 from api.models import Wallet
 from api.serializers import TransactionSerializer
 from api.serializers import WalletSerializer
-
+from django.db import IntegrityError
+from rest_framework import filters
+from rest_framework import generics
+from rest_framework.exceptions import ValidationError
+from rest_framework.generics import ListCreateAPIView
+from rest_framework_json_api import django_filters
 
 # region wallet
+
 
 class WalletListCreateAPIView(ListCreateAPIView):
     queryset = Wallet.objects.prefetch_related("transactions").all()
@@ -26,10 +25,10 @@ class WalletListCreateAPIView(ListCreateAPIView):
             "icontains",
             "iexact",
         ),
-        "balance":(
+        "balance": (
             "gte",
             "lte",
-        )
+        ),
     }
     ordering_fields = ["id", "label", "balance"]
     ordering = ["id"]
@@ -41,15 +40,15 @@ class WalletDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        context.update({
-            'request': self.request
-        })
+        context.update({"request": self.request})
         return context
+
 
 # endregion wallet
 
 
 # region transaction
+
 
 class TransactionListCreateAPIView(ListCreateAPIView):
     queryset = Transaction.objects.all()
@@ -65,7 +64,7 @@ class TransactionListCreateAPIView(ListCreateAPIView):
         "amount": (
             "gte",
             "lte",
-        )
+        ),
     }
     ordering_fields = [
         "id",
@@ -90,9 +89,8 @@ class TransactionDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        context.update({
-            'request': self.request
-        })
+        context.update({"request": self.request})
         return context
+
 
 # endregion transaction

@@ -1,8 +1,7 @@
-from django.conf import settings
-from rest_framework import serializers
-
 from api.models import Transaction
 from api.models import Wallet
+from django.conf import settings
+from rest_framework import serializers
 
 
 class WalletSerializer(serializers.ModelSerializer):
@@ -17,7 +16,7 @@ class WalletSerializer(serializers.ModelSerializer):
         """
         Limiting the number of shown transactions for wallet preview
         """
-        transactions = Transaction.objects.filter(wallet=obj).all()[:settings.WALLET_TRANSACTIONS_SHOW_LIMIT]
+        transactions = Transaction.objects.filter(wallet=obj).all()[: settings.WALLET_TRANSACTIONS_SHOW_LIMIT]
         return TransactionSerializer(transactions, many=True).data
 
 
