@@ -10,10 +10,19 @@ check: linter test
 
 install:
 	pip install poetry==1.8.4
-	poetry install
+	poetry install --without dev
+
+
+dev_install:
+	pip install poetry==1.8.4
+	poetry install --with dev
+
 
 build:
 	@docker compose build
+
+db:
+	@docker compose -f docker-compose.yml --env-file .env up db -d
 
 up:
 	@docker compose -f docker-compose.yml --env-file .env up
@@ -27,14 +36,14 @@ stop:
 logs:
 	@docker compose logs -f
 
-linter: # correct path to virtual environment directory if needs
-	@source .venv/bin/activate &&  pre-commit run --all-files
+linter: dev_install
+	@poetry run pre-commit run --all-files
 
 local-run:
-	@source .venv/bin/activate && cd django_wallet/ && poetry run manage.py runserver
+	@poetry run manage.py runserver
 
 migrate:
-	@source .venv/bin/activate && cd django_wallet/ && poetry run manage.py makemigrations && python manage.py migrate
+	@poetry run manage.py makemigrations && poetry run manage.py migrate
 
-test:
-	@source .venv/bin/activate && source .env.test && cd django_wallet/ && pytest api/tests.py
+test: dev_install
+	@poetry run pytest django_wallet/api/tests.py

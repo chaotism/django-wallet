@@ -10,6 +10,17 @@ jobs:
       matrix:
         python_version: [3.12.7]
 
+    services:
+      db:
+        image: mysql:8.4
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_DATABASE: test_wallet_api
+          MYSQL_USER: wallet_api
+          MYSQL_PASSWORD: secret
+
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python
@@ -20,8 +31,13 @@ jobs:
       run: |
         make install
     - name: Run linters
+      shell: bash
       run: |
-        make lint
+        make linter
     - name: Test with pytest
+      shell: bash
       run: |
         make test
+      env:
+        DB_HOST: 127.0.0.1
+        DB_PORT: 3306
