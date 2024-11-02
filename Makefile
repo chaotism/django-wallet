@@ -12,6 +12,12 @@ install:
 	pip install poetry==1.8.4
 	poetry install
 
+
+dev_install:
+	pip install poetry==1.8.4
+	poetry install --with dev
+
+
 build:
 	@docker compose build
 
@@ -27,7 +33,7 @@ stop:
 logs:
 	@docker compose logs -f
 
-linter: # correct path to virtual environment directory if needs
+linter: dev_install
 	@pre-commit run --all-files
 
 local-run:
@@ -36,5 +42,5 @@ local-run:
 migrate:
 	@source .venv/bin/activate && cd django_wallet/ && poetry run manage.py makemigrations && python manage.py migrate
 
-test:
+test: dev_install
 	@source .venv/bin/activate && source .env.test && cd django_wallet/ && pytest api/tests.py
